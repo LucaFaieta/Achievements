@@ -40,3 +40,9 @@
 .read-the-docs {
   color: #888;
 }
+
+.modal-body-custom {
+  background-color: #f8f9fa; /* Light gray background */
+  border-radius: 5px;
+  padding: 15px;
+}
