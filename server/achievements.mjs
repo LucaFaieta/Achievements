@@ -38,7 +38,6 @@ export default function Achievements(){
         const achi = user_achi;
         let new_achi = [...user_achi]; 
         let list_achi = [];
-        //console.log("porcoooooo",achi);
         if (achi[welcomed].times_gained === 0){
             const n_match = await db.nMatch(user_id);
             
@@ -49,10 +48,8 @@ export default function Achievements(){
                 }
                 
             }
-            console.log(achi[brain_on].times_gained);
             if(achi[brain_on].times_gained === 0){
                 const n_win = await db.nWins(user_id);
-                console.log("n_win",n_win);
                 if (n_win === 1){
                     new_achi[brain_on].times_gained = 1;
                     list_achi.push(achi[brain_on].achievement_id);
@@ -79,7 +76,6 @@ export default function Achievements(){
 
             if(achi[all_rounder].times_gained === 0){
                 const res = await db.winEvery(user_id);
-                //console.log("agggagggag",res);
                 if(res.every(value => value ===1)){
                     new_achi[all_rounder].times_gained = 1;
                     list_achi.push(achi[all_rounder].achievement_id);
@@ -97,7 +93,6 @@ export default function Achievements(){
 
             const multi = k_wins % 10 === 0;
             if(multi && (Math.floor(k_wins / 10))> achi[endurance].times_gained){
-                console.log(k_wins,multi,achi[endurance]);
                 new_achi[endurance].times_gained += 1;
                 list_achi.push(achi[endurance].achievement_id);
                 db.updateAchi(user_id,achi[endurance].achievement_id,new_achi[endurance].times_gained);
@@ -124,8 +119,7 @@ export default function Achievements(){
                 db.updateAchi(user_id,achi[perfect].achievement_id,new_achi[perfect].times_gained);
             }
 
-        
-            console.log("madonnnnna",list_achi)
+
         return {"list_achi":new_achi,"new_achi":list_achi};
 
     } 

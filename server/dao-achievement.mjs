@@ -1,9 +1,7 @@
 import db from "./db.mjs";
-import crypto from "crypto";
 
 
 export default function achievementDao (){
-    console.log(db);
     this.getUserAchi = (id) =>{
         return new Promise((resolve,reject) => {
             const sql = `SELECT 
@@ -49,7 +47,6 @@ export default function achievementDao (){
                         
                     }
                     else {
-                        console.log(rows);
                             resolve(rows);
                         };
                     })

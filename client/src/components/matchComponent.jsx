@@ -11,8 +11,6 @@ const GuessingGame = (props) => {
   const difficulty = Number(n);
   
     const navigate = useNavigate();
-  // Game states
-  //const [response,setResponse] = useState(null);
   const [secretNumber, setSecretNumber] = useState(null);
   const [remainingAttempts, setRemainingAttempts] = useState(0);
   const [guess, setGuess] = useState("");
@@ -37,34 +35,30 @@ const GuessingGame = (props) => {
                 "number": secretNumber
               };
               const results = await API.newAchi(match).catch(e => setFeedbackFromError(e));
-              //props.setAchi([...results.achi]);
               if(results.newAchi.length > 0){
                 setNewAchi([...results.newAchi]);
                 setShowAchievementModal(true);
+                props.setRefresh(true);
               }
             }
 
     if (!endGame && feedback === ""){
     startGame(); // Start the game when the page loads
     }else if (endGame){
-        fetchAchi();
+        fetchAchi().catch(e => setFeedbackFromError(e));
         setEndGame(false);
-        props.setRefresh(true);
+        
     }
-    /*return () => {
-      setEndGame(false);};*/
   }, [endGame]);
 
   const closeModal = () => setShowAchievementModal(false);
 
   const startGame = () =>{
     const max = 10**difficulty;
-    console.log(max);
     setRange(max);
     const attempts = 4 * difficulty;
 
-    //setSecretNumber(Math.floor(Math.random() * max) + 1);
-    setSecretNumber(5);
+    setSecretNumber(Math.floor(Math.random() * max) + 1);
     setRemainingAttempts(attempts);
     setFeedback("");
     setGuess("");
@@ -170,7 +164,7 @@ const GuessingGame = (props) => {
           </Card>
         </Col>
       </Row>
-      {/* New Achievements Modal */}
+      {/* New Achievements*/}
       <Modal show={showAchievementModal} onHide={closeModal}>
         <Modal.Header closeButton className="bg-success text-white">
           <Modal.Title >🎉 Congratulations!</Modal.Title>

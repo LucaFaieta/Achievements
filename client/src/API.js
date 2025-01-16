@@ -1,4 +1,4 @@
-const SERVER_URL = 'http://localhost:3002/api';
+const SERVER_URL = 'http://localhost:3001/api';
 
 /**
  * This function wants username and password inside a "credentials" object.

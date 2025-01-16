@@ -14,16 +14,18 @@ const NonLoggedUserComponent = ({ onLogin }) => {
 
 
   useEffect(() => {
+
   
     const fetchAchi = async () =>{
-      const results = await API.allAchi().catch(e => setFeedbackFromError(e));
+      const results = await API.allAchi();
       setAllAchi([...results]);
-      console.log(results);
     }
 
-    fetchAchi();
+    fetchAchi().catch(e => setFeedbackFromError(e));
+    
 
 }, []);
+
   const handleLogin = (e) => {
     e.preventDefault();
     onLogin({username:email, password:password}).then(() => navigate("/")).catch( (err) => {
@@ -43,19 +45,27 @@ const NonLoggedUserComponent = ({ onLogin }) => {
               Gainable Achievements
             </Card.Header>
             <Card.Body>
-              {allAchi.map((achievement, index) => (
-                <Card key={index} className="shadow-sm mb-3">
-                  <Card.Body className="d-flex align-items-center justify-content-between" style={{ fontSize: '1.7rem' }}>
- 
+              {allAchi.length === 0 ? (
+                <div className="text-center">
+                  <span className="text-muted" style={{ fontSize: '1.3rem' }}>Loading achievements...</span>
+                </div>
+              ) : (
+                allAchi.map((achievement, index) => (
+                  <Card key={index} className="shadow-sm mb-3">
+                    <Card.Body className="d-flex align-items-center justify-content-between" style={{ fontSize: '1.7rem' }}>
                       {achievement.icon}
-  
-                    <div className="flex-grow-1">
-                      <Card.Title className="flex-grow-1 fw-bold text-center" style={{ fontSize: '1.5rem' }}> {achievement.name}</Card.Title>
-                      <Card.Text className="text-muted text-center"style={{ fontSize: '1.3rem' }}>{achievement.condition}</Card.Text>
-                    </div>
-                  </Card.Body>
-                </Card>
-              ))}
+                      <div className="flex-grow-1">
+                        <Card.Title className="flex-grow-1 fw-bold text-center" style={{ fontSize: '1.5rem' }}>
+                          {achievement.name}
+                        </Card.Title>
+                        <Card.Text className="text-muted text-center" style={{ fontSize: '1.3rem' }}>
+                          {achievement.condition}
+                        </Card.Text>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                ))
+              )}
             </Card.Body>
           </Card>
         </Col>

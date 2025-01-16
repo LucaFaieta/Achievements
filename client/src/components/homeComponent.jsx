@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import API from "../API";
 
 const PersonalPage = (props) => {
   const [selectedDifficulty, setSelectedDifficulty] = useState(1);
@@ -13,7 +12,6 @@ const PersonalPage = (props) => {
 
   const onStartMatch = () => {
     const str = `/play/${selectedDifficulty}/`;
-    console.log("Navigating to:", str);
     navigate(str);
   };
 
@@ -57,17 +55,27 @@ const PersonalPage = (props) => {
               Attained Achievements
             </Card.Header>
             <Card.Body>
-              {attained.map((achievement, index) => (
+            {toBe.length === 0 ? (
+              <div className="text-center">
+                <div className="spinner-border text-primary" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+                <p className="text-muted mt-2" style={{ fontSize: '1.3rem' }}>Loading achievements...</p>
+              </div>
+            ) : (
+              attained.map((achievement, index) => (
                 <Card key={index} className="mb-3">
                   <Card.Body className="text-center">
-                    <div style={{ fontSize: "2rem" }}>{achievement.icon}</div>
+                    {achievement.icon}
                     <Card.Title className="fw-bold">{achievement.name}</Card.Title>
                     <Card.Text>{achievement.condition}</Card.Text>
                     <Card.Text>Times Gained: {Number(achievement.times_gained)}</Card.Text>
                   </Card.Body>
                 </Card>
-              ))}
-            </Card.Body>
+              ))
+            )}
+          </Card.Body>
+
           </Card>
         </Col>
 
@@ -78,16 +86,25 @@ const PersonalPage = (props) => {
               Next Achievements
             </Card.Header>
             <Card.Body>
-              {toBe.map((achievement, index) => (
-                <Card key={index} className="mb-3">
-                  <Card.Body className="text-center">
-                    <div style={{ fontSize: "2rem" }}>{achievement.icon}</div>
-                    <Card.Title className="fw-bold">{achievement.name}</Card.Title>
-                    <Card.Text>{achievement.condition}</Card.Text>
-                  </Card.Body>
-                </Card>
-              ))}
-            </Card.Body>
+                {toBe.length === 0 ? (
+                  <div className="text-center">
+                    <div className="spinner-border text-primary" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                    <p className="text-muted mt-2" style={{ fontSize: '1.3rem' }}>Loading achievements...</p>
+                  </div>
+                ) : (
+                  toBe.map((achievement, index) => (
+                    <Card key={index} className="mb-3">
+                      <Card.Body className="text-center">
+                      {achievement.icon}
+                        <Card.Title className="fw-bold">{achievement.name}</Card.Title>
+                        <Card.Text>{achievement.condition}</Card.Text>
+                      </Card.Body>
+                    </Card>
+                  ))
+                )}
+              </Card.Body>
           </Card>
         </Col>
       </Row>

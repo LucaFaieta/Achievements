@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
 
-import { useEffect, useState,useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Toast, ToastBody } from 'react-bootstrap/';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import API from "./API.js";
@@ -13,6 +13,8 @@ import Header from './components/Header.jsx';
 import NonLoggedUserComponent from './components/Login.jsx';
 import GuessingGame from './components/matchComponent.jsx';
 import PersonalPage from './components/homeComponent.jsx';
+
+
 function App() {
 
 
@@ -41,7 +43,7 @@ function App() {
 
   
 const handleLogin = async (credentials) => {
-  const user = await API.logIn(credentials).catch(e => setFeedbackFromError(e));
+  const user = await API.logIn(credentials);
   setUser({id : user.id,email : user.email});  setLoggedIn(true); setRefresh(true);
 };
 
@@ -54,15 +56,14 @@ const handleLogout = async () => {
 
   useEffect(() => {
     const fetchAchi = async () => {
-      const results = await API.userAchi().catch(e => setFeedbackFromError(e));
+      const results = await API.userAchi();
       setAttained([...results.achieved]);
       setToBe([...results.toAchieve]);
-      console.log(results);
     };
-    //if (refresh)
-    fetchAchi();
+    if (user){
+    fetchAchi().catch(e => setFeedbackFromError(e));
     setRefresh(false);
-  
+  }
   }, [refresh]);
 
 
@@ -88,8 +89,8 @@ const handleLogout = async () => {
                                 :<PersonalPage attained = {attained} toBe = {toBe}/>
                         }>
                             <Route path="*" element={<NotFoundLayout/>}/>
-                            {/*<Route index element={
-                                 <PersonalPage/>}/>*/}
+                            {<Route index element={
+                                 <PersonalPage/>}/>}
                         </Route>
                         <Route path="/play/:n/" element={
                             !loggedIn ? <Navigate replace to='/login' />

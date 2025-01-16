@@ -10,7 +10,6 @@ import UserDao from './dao-users.mjs';
 import achievementDao from './dao-achievement.mjs';
 // init express
 const app = new express();
-const port = 3002;
 const userDao = new UserDao();
 const achiDao = new achievementDao();
 
@@ -78,7 +77,7 @@ const isLoggedIn = (req, res, next) => {
 }
 
 
-/*** Utility Functions ***/
+
 
 // This function is used to handle validation errors
 const onValidationErrors = (validationResult, res) => {
@@ -92,10 +91,6 @@ const errorFormatter = ({msg}) => {
 };
 
 
-// activate the server
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
-});
 
 
 
@@ -179,13 +174,6 @@ app.post('/api/sessions', function(req, res, next) {
 
   let all_achi;
   const achievements = new Achievements();
-  /*const join = (user_achievement) =>{
-    const total = all_achi.map((item,index) =>({
-      ...item,
-      "num":user_achievement[index]
-    }));
-    return total;
-  }*/
 
 
 
@@ -194,7 +182,6 @@ app.get('/api/all',
     try{
       all_achi = await achiDao.getAllAchi();
       const results = [...all_achi] ;
-      //console.log(results);
       res.json(results);
     }catch(e){
       res.status(500).json({error: `Database error retrieving the achievements: ${e}`});
@@ -205,11 +192,7 @@ app.get('/api/all',
 app.get('/api/userAchi', isLoggedIn,
   async(req, res) => {
       try{
-      //const achi = Object.values(user_achi);
       const query = await achiDao.getUserAchi(req.user.id);
-      //console.log(req);
-      //console.log("porcodio");
-      //console.log(query);
       const userAchi = query.filter(value => value.times_gained != 0);
       const gainable = query.filter(value => value.times_gained === 0 || value.repeatable === 1);
       res.json({"achieved":[...userAchi],"toAchieve":[...gainable]});
@@ -235,18 +218,12 @@ app.put('/api/check', isLoggedIn,matchValidation,
                       "number": Number(req.body.number)};
           const history = await achiDao.matches_info(req.user.id,match.difficulty);
           const new_score = await achievements.add_match(history,match);
-          //console.log(new_score);
           await achiDao.updateMatchInfo(new_score,req.user.id);
           const userAchi = await achiDao.getUserAchi(req.user.id);
           const resu = await achievements.check_achi(new_score,achiDao,userAchi,req.user.id);
-          console.log("resu",resu);
           const joined = await Promise.all(resu.new_achi.map(async (id) => {
             return await achiDao.achievemntFromId(id);
           }));
-          //(console.log(joined);
-          //POSSIBILITà DI EVITARLO SE NON CI SONO NUOVI ACHI
-          // Controllare se proprio mi serve
-          //const total = join(resu.list_achi).filter(num => Number(num) != 0);
           const result = {"newAchi":joined};
           
           res.json(result);

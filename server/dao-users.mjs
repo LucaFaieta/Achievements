@@ -36,7 +36,6 @@ export default function UserDao() {
                 }
                 else {
                     const user = {"id":row.UserId,"email":row.Email};
-                    console.log(row);
                     // Check the hashes with an async call, this operation may be CPU-intensive (and we don't want to block the server)
                     crypto.scrypt(password, Buffer.from(row.Salt, 'hex'), 64, function (err, hashedPassword) { // WARN: it is 64 and not 32 (as in the week example) in the DB
                         if (err) reject(err);
