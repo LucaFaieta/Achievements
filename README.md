@@ -82,4 +82,4 @@ All the API's outside the one for logging in are accesible only for logged in us
 
 - francesco.totti@example.com, forzaRoma (played)
 - luca.faieta@studenti.polito.it, politecnico (played)
-- john.doe@example.com, webbapp1 (to be played)
+- john.doe@example.com, webapp1 (to be played)
