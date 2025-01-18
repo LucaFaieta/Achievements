@@ -1,6 +1,6 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/L6J_jFK7)
-# Exam #N: "Exam Title"
-## Student: s123456 LASTNAME FIRSTNAME 
+# Exam #4: "Achievements"
+## Student: s323770 Faieta Luca 
 
 ## React Client Application Routes
 
@@ -45,11 +45,11 @@ All the API's outside the one for logging in are accesible only for logged in us
 - **DELETE  `/sessions/current`**: 
   - **Purpose**: Logs out the current user by destroying their session.
   - **Response**: Does not return a body on success.
-- **PUT `/api/check`**: 
+- **PUT `/api/match`**: 
   - **Purpose**: Starting the process of checking if new achievements are gained from the result of the current match.
   - **Parameters**: the match object that correspond to the info about the match just finished.
   - **Response**: A list with new achievements gained, could be empty if nothing is achieved.
-- **GET `/api/all`**: 
+- **GET `/api/allAchi`**: 
   - **Purpose**: retrieve all the possible achievements.
   - **Parameters**: No parameters necessary.
   - **Response**: A list with all the achievements present in the game.

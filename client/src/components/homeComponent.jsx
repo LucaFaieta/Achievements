@@ -56,12 +56,12 @@ const PersonalPage = (props) => {
             </Card.Header>
             <Card.Body>
             {toBe.length === 0 ? (
-              <div className="text-center">
-                <div className="spinner-border text-primary" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
-                <p className="text-muted mt-2" style={{ fontSize: '1.3rem' }}>Loading achievements...</p>
-              </div>
+              <Col className="text-center">
+                <Col className="spinner-border text-primary" role="status">
+                  <Row className="visually-hidden">Loading...</Row>
+                </Col>
+                <Row className="text-muted mt-2" style={{ fontSize: '1.3rem' }}>Loading achievements...</Row>
+              </Col>
             ) : (
               attained.map((achievement, index) => (
                 <Card key={index} className="mb-3">
@@ -87,12 +87,12 @@ const PersonalPage = (props) => {
             </Card.Header>
             <Card.Body>
                 {toBe.length === 0 ? (
-                  <div className="text-center">
-                    <div className="spinner-border text-primary" role="status">
-                      <span className="visually-hidden">Loading...</span>
-                    </div>
-                    <p className="text-muted mt-2" style={{ fontSize: '1.3rem' }}>Loading achievements...</p>
-                  </div>
+                  <Col className="text-center">
+                    <Col className="spinner-border text-primary" role="status">
+                      <Row className="visually-hidden">Loading...</Row>
+                    </Col>
+                    <Row className="text-muted mt-2" style={{ fontSize: '1.3rem' }}>Loading achievements...</Row>
+                  </Col>
                 ) : (
                   toBe.map((achievement, index) => (
                     <Card key={index} className="mb-3">

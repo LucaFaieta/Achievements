@@ -177,7 +177,7 @@ app.post('/api/sessions', function(req, res, next) {
 
 
 
-app.get('/api/all',
+app.get('/api/allAchi',
   async(req, res) => {
     try{
       all_achi = await achiDao.getAllAchi();
@@ -203,7 +203,7 @@ app.get('/api/userAchi', isLoggedIn,
 );
 
 
-app.put('/api/check', isLoggedIn,matchValidation,
+app.put('/api/match', isLoggedIn,matchValidation,
   async (req, res) => {
 
       const invalidFields = validationResult(req);

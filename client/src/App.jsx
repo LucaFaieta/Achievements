@@ -13,7 +13,7 @@ import Header from './components/Header.jsx';
 import NonLoggedUserComponent from './components/Login.jsx';
 import GuessingGame from './components/matchComponent.jsx';
 import PersonalPage from './components/homeComponent.jsx';
-
+import {Col} from "react-bootstrap";
 
 function App() {
 
@@ -79,7 +79,7 @@ const handleLogout = async () => {
 
   return (
     <FeedbackContext.Provider value={{setFeedback, setFeedbackFromError}}>
-            <div className="min-vh-100 d-flex flex-column">
+            <Col className="min-vh-100 d-flex flex-column">
                 <Header logout = {handleLogout} user = {user}/>
                 <Container fluid className="flex-grow-1 d-flex flex-column">
                     <Routes>
@@ -87,11 +87,9 @@ const handleLogout = async () => {
                             path="/" element={ /* If the user is not logged-in, redirect to log-in form*/
                                 !loggedIn ? <Navigate replace to='/login' />
                                 :<PersonalPage attained = {attained} toBe = {toBe}/>
-                        }>
-                            <Route path="*" element={<NotFoundLayout/>}/>
-                            {<Route index element={
-                                 <PersonalPage/>}/>}
+                        }> 
                         </Route>
+                        <Route path="*" element={<NotFoundLayout/>}/>
                         <Route path="/play/:n/" element={
                             !loggedIn ? <Navigate replace to='/login' />
                             : <GuessingGame setRefresh = {setRefresh}/>}/>
@@ -115,7 +113,7 @@ const handleLogout = async () => {
                         </ToastBody>
                     </Toast>
                 </Container>
-            </div>
+            </Col>
             </FeedbackContext.Provider>
     );
   

@@ -39,7 +39,7 @@ const getUserInfo = async () => {
 
   const newAchi = async (match) => {
     // Check the match for new achievement
-    const response = await fetch(SERVER_URL + '/check',{
+    const response = await fetch(SERVER_URL + '/match',{
       method: "PUT",
       headers: {
           'Content-Type': 'application/json'
@@ -56,7 +56,7 @@ const getUserInfo = async () => {
 
 const allAchi = async () => {
     // Fetch all the achi
-    const response = await fetch(SERVER_URL + "/all",
+    const response = await fetch(SERVER_URL + "/allAchi",
         {credentials: 'include'}).then(handleInvalidResponse).then(res => res.json());
       return response;
     

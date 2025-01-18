@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import {Col, Row} from "react-bootstrap";
 
 const HeaderComponent = (props) => {
 
@@ -19,8 +20,8 @@ const HeaderComponent = (props) => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto align-items-center">
             {props.user ? (
-              <div className="d-flex align-items-center">
-                <span className="text-light me-3">{props.user.email}</span>
+              <Col className="d-flex align-items-center">
+                <Row className="text-light me-3">{props.user.email}</Row>
                 <Button
                   variant="outline-light"
                   onClick={handleLogout}
@@ -28,9 +29,9 @@ const HeaderComponent = (props) => {
                 >
                   Logout
                 </Button>
-              </div>
+              </Col>
             ) : (
-              <span className="text-light">Guest</span>
+              <Row className="text-light">Guest</Row>
             )}
           </Nav>
         </Navbar.Collapse>
