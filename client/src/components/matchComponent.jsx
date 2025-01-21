@@ -42,12 +42,10 @@ const GuessingGame = (props) => {
               }
             }
 
-    if (!endGame && feedback === ""){
-    startGame(); // Start the game when the page loads
-    }else if (endGame){
-        fetchAchi().catch(e => setFeedbackFromError(e));
-        setEndGame(false);
-        
+    if (!endGame){
+    startGame(); // Start the game
+    }else{
+        fetchAchi().catch(e => setFeedbackFromError(e));   
     }
   }, [endGame]);
 
@@ -66,16 +64,13 @@ const GuessingGame = (props) => {
   }
   const handleGuess = () => {
     const numericGuess = Number(guess);
-    setRemainingAttempts((prev) => prev - 1);
-
-
-
+   
     if (numericGuess < 1 || numericGuess > 10 ** difficulty) {
       setFeedback(`Please enter a number between 1 and ${10 ** difficulty}.`);
       
       return;
     }
-
+    
      if (numericGuess === secretNumber) {
       setFeedback("🎉 Congratulations! You guessed the number!");
       setGameStatus("won");
@@ -91,7 +86,7 @@ const GuessingGame = (props) => {
       setEndGame(true);
       return;
     }
-
+    setRemainingAttempts((prev) => prev - 1);
      if (numericGuess < secretNumber) {
       setFeedback("Too low! Try again.");
     } else {
@@ -104,10 +99,8 @@ const GuessingGame = (props) => {
   const resetGame = () => {
     setGameStatus("");
     setNewAchi([]);
-    setFeedback("");
-    setGuess("");
     closeModal();
-    startGame();
+    setEndGame(false);
   };
 
   return (
