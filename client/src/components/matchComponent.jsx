@@ -70,7 +70,7 @@ const GuessingGame = (props) => {
       
       return;
     }
-    
+    setRemainingAttempts((prev) => prev - 1);
      if (numericGuess === secretNumber) {
       setFeedback("🎉 Congratulations! You guessed the number!");
       setGameStatus("won");
@@ -86,7 +86,7 @@ const GuessingGame = (props) => {
       setEndGame(true);
       return;
     }
-    setRemainingAttempts((prev) => prev - 1);
+    
      if (numericGuess < secretNumber) {
       setFeedback("Too low! Try again.");
     } else {
