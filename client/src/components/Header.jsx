@@ -2,11 +2,12 @@ import React from 'react';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import {Col, Row} from "react-bootstrap";
+import { useLocation } from 'react-router-dom';
 
 const HeaderComponent = (props) => {
 
   const navigate = useNavigate();
-
+  const location = useLocation();
   const handleLogout = () => {
     props.logout();
     navigate('/login');
@@ -29,10 +30,17 @@ const HeaderComponent = (props) => {
                 >
                   Logout
                 </Button>
+                {location.pathname != '/' && (
+                <Button variant="outline-light"
+                onClick={() => navigate("/")}
+                className="me-3">Home</Button>
+              )}
               </Col>
+               
             ) : (
               <Row className="text-light">Guest</Row>
             )}
+           
           </Nav>
         </Navbar.Collapse>
       </Container>
