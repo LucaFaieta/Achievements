@@ -1,7 +1,6 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/L6J_jFK7)
-# Exam #4: "Achievements"
-## Student: s323770 Faieta Luca 
 
+# "Achievements"
+Simple React and express webb application with a guessing game, for simplicity handled client side with a complex gamification throught gainable achievements
 ## React Client Application Routes
 
 - **Route `/`**:
